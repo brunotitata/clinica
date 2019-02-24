@@ -1,3 +1,0 @@
-[submodule "paciente-service"]
-	path = paciente-service
-	url = ../paciente-service.git
