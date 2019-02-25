@@ -20,10 +20,11 @@ public class PacienteService {
 	}
 
 	public Paciente salvarPaciente(Paciente paciente) {
-	    
-		Paciente novoPaciente = new Paciente(new PacienteId(Utils.gerarUUID()), paciente.getNome(), paciente.getSexo(), paciente.getRaca(),
-				paciente.getDataDeNascimento(), paciente.getCpf(), paciente.getRg(), paciente.getCartaoNacionalDeSaude(), paciente.getCep(),
-				paciente.getEndereco(), paciente.getBairro(), paciente.getCidade(), paciente.getTelefone());
+
+		Paciente novoPaciente = new Paciente(new PacienteId(Utils.gerarUUID()), paciente.getNome(), paciente.getSexo(),
+				paciente.getRaca(), paciente.getDataDeNascimento(), paciente.getCpf(), paciente.getRg(),
+				paciente.getCartaoNacionalDeSaude(), paciente.getCep(), paciente.getEndereco(), paciente.getBairro(),
+				paciente.getCidade(), paciente.getTelefone());
 
 		novoPaciente.setConvenio(paciente.getConvenio());
 		novoPaciente.setEstadoCivil(paciente.getEstadoCivil());
@@ -42,43 +43,49 @@ public class PacienteService {
 		return pacienteRepository.findByPacienteId(new PacienteId(id))
 				.orElseThrow(() -> new IllegalArgumentException("Não foi possivel encontrar paciente com o ID: " + id));
 	}
-	
-	public Page<Paciente> buscarTodosPacientes(Pageable pageable){
-	    
-	   return pacienteRepository.findAll(pageable);
+
+	public Page<Paciente> buscarTodosPacientes(Pageable pageable) {
+
+		return pacienteRepository.findAll(pageable);
 	}
-	
-        public void excluirPaciente(Long id) {
 
-        pacienteRepository.delete(pacienteRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(
-                        "Não foi possivel deletar paciente com codigo: " + id)));
-        }
-        
-        public Paciente alterarPaciente(Long id, Paciente obj) {
-            
-            Paciente paciente = pacienteRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Não foi possivel encontrar paciente com o codigo: " + id));
-            
-            paciente.setBairro(obj.getSexo().name());
-            paciente.setCartaoNacionalDeSaude(obj.getCartaoNacionalDeSaude());
-            paciente.setCep(obj.getCep());
-            paciente.setCidade(obj.getCidade());
-            paciente.setConvenio(obj.getConvenio());
-            paciente.setDataDeNascimento(obj.getDataDeNascimento());
-            paciente.setEmail(obj.getEmail());
-            paciente.setEndereco(obj.getEndereco());
-            paciente.setEstadoCivil(obj.getEstadoCivil());
-            paciente.setNome(obj.getNome());
-            paciente.setNomeDaMae(obj.getNomeDaMae());
-            paciente.setNomeDoPai(obj.getNomeDoPai());
-            paciente.setPlano(obj.getPlano());
-            paciente.setRaca(obj.getRaca());
-            paciente.setSexo(obj.getSexo());
-            paciente.setTelefone(obj.getTelefone());
-            paciente.setTelefone2(obj.getTelefone2());
-            paciente.setTelefone3(obj.getTelefone3());
-            
-            return pacienteRepository.saveAndFlush(paciente);
-        }
+	public void excluirPaciente(Long id) {
 
+		pacienteRepository.delete(pacienteRepository.findById(id).orElseThrow(
+				() -> new IllegalArgumentException("Não foi possivel deletar paciente com codigo: " + id)));
+	}
+
+	public Paciente alterarPaciente(Long id, Paciente obj) {
+
+		Paciente paciente = pacienteRepository.findById(id).orElseThrow(
+				() -> new IllegalArgumentException("Não foi possivel encontrar paciente com o codigo: " + id));
+
+		paciente.setBairro(obj.getSexo().name());
+		paciente.setCartaoNacionalDeSaude(obj.getCartaoNacionalDeSaude());
+		paciente.setCep(obj.getCep());
+		paciente.setCidade(obj.getCidade());
+		paciente.setConvenio(obj.getConvenio());
+		paciente.setDataDeNascimento(obj.getDataDeNascimento());
+		paciente.setEmail(obj.getEmail());
+		paciente.setEndereco(obj.getEndereco());
+		paciente.setEstadoCivil(obj.getEstadoCivil());
+		paciente.setNome(obj.getNome());
+		paciente.setNomeDaMae(obj.getNomeDaMae());
+		paciente.setNomeDoPai(obj.getNomeDoPai());
+		paciente.setPlano(obj.getPlano());
+		paciente.setRaca(obj.getRaca());
+		paciente.setSexo(obj.getSexo());
+		paciente.setTelefone(obj.getTelefone());
+		paciente.setTelefone2(obj.getTelefone2());
+		paciente.setTelefone3(obj.getTelefone3());
+
+		return pacienteRepository.saveAndFlush(paciente);
+	}
+
+	public Paciente buscarPacientePorCpf(String cpf) {
+
+		return pacienteRepository.findByCpf(cpf).orElseThrow(
+				() -> new IllegalArgumentException("Não foi possivel encontrar paciente com o CPF: " + cpf));
+	}
 
 }

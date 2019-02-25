@@ -36,27 +36,33 @@ public class PacienteController {
 
 		return ResponseEntity.ok().body(pacienteService.buscarPacientePeloPacienteId(pacienteId));
 	}
-	
+
 	@GetMapping("/buscar/pacientes/todos")
-	public ResponseEntity<Page<Paciente>> buscarTodosPacientes(Pageable pageable){
-	    
-	        return ResponseEntity.ok().body(pacienteService.buscarTodosPacientes(pageable));
+	public ResponseEntity<Page<Paciente>> buscarTodosPacientes(Pageable pageable) {
+
+		return ResponseEntity.ok().body(pacienteService.buscarTodosPacientes(pageable));
 	}
-	
+
 	@DeleteMapping("/excluir/paciente/{id}")
 	public ResponseEntity<?> excluirPaciente(@PathVariable Long id) {
-	    
-	    pacienteService.excluirPaciente(id);
-	    
-	    return ResponseEntity.noContent().build();
+
+		pacienteService.excluirPaciente(id);
+
+		return ResponseEntity.noContent().build();
 	}
-	
+
 	@PutMapping("/alterar/paciente/{id}")
-	public ResponseEntity<Paciente> alterarPaciente(@RequestBody Paciente obj, @PathVariable Long id){
-	    
-	    pacienteService.alterarPaciente(id, obj);
-	    
-	    return ResponseEntity.noContent().build();
+	public ResponseEntity<Paciente> alterarPaciente(@RequestBody Paciente obj, @PathVariable Long id) {
+
+		pacienteService.alterarPaciente(id, obj);
+
+		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping("/buscar/paciente/cpf/{cpf}")
+	public ResponseEntity<Paciente> buscarPacientePorCpf(@PathVariable String cpf) {
+
+		return ResponseEntity.ok().body(pacienteService.buscarPacientePorCpf(cpf));
 	}
 
 }
