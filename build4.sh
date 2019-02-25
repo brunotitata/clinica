@@ -1,0 +1,1 @@
+cd paciente && mvn clean install -Dmaven.test.skip=true && cd target/ && java -jar paciente-0.0.1-SNAPSHOT.jar

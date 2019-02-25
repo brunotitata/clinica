@@ -1,0 +1,1 @@
+cd spring-eureka-auth && mvn clean install -Dmaven.test.skip=true && cd target/ && java -jar spring-eureka-auth-0.0.1-SNAPSHOT.jar

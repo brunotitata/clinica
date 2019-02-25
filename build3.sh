@@ -1,0 +1,1 @@
+cd spring-eureka-zuul && mvn clean install -Dmaven.test.skip=true && cd target/ && java -jar spring-eureka-zuul-0.0.1-SNAPSHOT.jar
