@@ -79,6 +79,10 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 				.setIssuedAt(new Date(now)).setExpiration(new Date(now + jwtConfig.getExpiration() * 1000)) // in
 																											// milliseconds
 				.signWith(SignatureAlgorithm.HS512, jwtConfig.getSecret().getBytes()).compact();
+		
+		System.out.println("###### TOKEN: " + token);
+		System.out.println("###### jwtConfig.getHeader(): " + jwtConfig.getHeader());
+		System.out.println("###### jwtConfig.getPrefix(): " + jwtConfig.getPrefix());
 
 		// Add token to header
 		response.addHeader(jwtConfig.getHeader(), jwtConfig.getPrefix() + token);

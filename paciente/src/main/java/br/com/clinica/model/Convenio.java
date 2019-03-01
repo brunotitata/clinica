@@ -8,6 +8,8 @@ public enum Convenio {
 	UNIMED, 
 	@JsonProperty("SAOFRANCISCO")
 	SÃOFRANCISCO,
+	@JsonProperty("PARTICULAR")
+	PARTICULAR,
 	@JsonProperty("OUTROS")
 	OUTROS;
 

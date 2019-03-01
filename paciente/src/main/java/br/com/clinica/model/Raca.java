@@ -8,9 +8,14 @@ public enum Raca {
 	BRANCA, 
 	@JsonProperty("NEGRA")
 	NEGRA,
-	@JsonProperty("PARDO")
-	PARDO, 
+	@JsonProperty("PARDA")
+	PARDA, 
 	@JsonProperty("MISTICA")
-	MISTICA;
+	MISTICA,
+	@JsonProperty("AMARELA")
+	AMARELA,
+	@JsonProperty("INDIGENA")
+	INDIGENA;
+	
 
 }

@@ -32,6 +32,7 @@ public class Paciente {
     public static final String ERROR_BAIRRO = "Bairro não pode ser nulo ou vazio.";
     public static final String ERROR_CIDADE = "Cidade não pode ser nulo ou vazio.";
     public static final String ERROR_TELEFONE = "Telefone não pode ser nulo ou vazio.";
+    public static final String ERROR_ENVIO_SMS = "Envio de SMS não pode ser nulo ou vazio.";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,10 +53,12 @@ public class Paciente {
     private String cartaoNacionalDeSaude;
     @Enumerated(EnumType.STRING)
     private Convenio convenio;
-    private String plano;
+    @Enumerated(EnumType.STRING)
+    private Plano plano;
     private String cep;
     private String endereco;
     private String bairro;
+    private String complemento;
     private String cidade;
     private String telefone;
     private String telefone2;
@@ -64,11 +67,17 @@ public class Paciente {
     private String nomeDoPai;
     @Email
     private String email;
+    @Enumerated(EnumType.STRING)
+    private EnviarSms enviarSms;
+    private String observacao;
+    @Enumerated(EnumType.STRING)
+    private EnviarEmail enviarEmail;
 
     public Paciente(PacienteId pacienteId, String nome, Sexo sexo, Raca raca,
             LocalDate dataDeNascimento, String cpf, String rg,
             String cartaoNacionalDeSaude, String cep, String endereco,
-            String bairro, String cidade, String telefone) {
+            String bairro, String cidade, String telefone, EnviarSms enviarSms,
+            EnviarEmail enviarEmail) {
         setPacienteId(pacienteId);
         setNome(nome);
         setSexo(sexo);
@@ -82,7 +91,8 @@ public class Paciente {
         setBairro(bairro);
         setCidade(cidade);
         setTelefone(telefone);
-
+        setEnviarSms(enviarSms);
+        setEnviarEmail(enviarEmail);
     }
 
     public Paciente() {
@@ -168,11 +178,11 @@ public class Paciente {
         this.convenio = convenio;
     }
 
-    public String getPlano() {
+    public Plano getPlano() {
         return plano;
     }
 
-    public void setPlano(String plano) {
+    public void setPlano(Plano plano) {
         this.plano = plano;
     }
 
@@ -271,6 +281,39 @@ public class Paciente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public EnviarSms getEnviarSms() {
+        return enviarSms;
+    }
+
+    public void setEnviarSms(EnviarSms enviarSms) {
+        Utils.assertArgumentNotNull(enviarSms, ERROR_ENVIO_SMS);
+        this.enviarSms = enviarSms;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public EnviarEmail getEnviarEmail() {
+        return enviarEmail;
+    }
+
+    public void setEnviarEmail(EnviarEmail enviarEmail) {
+        this.enviarEmail = enviarEmail;
     }
 
 }

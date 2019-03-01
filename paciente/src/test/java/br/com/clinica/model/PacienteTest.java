@@ -19,14 +19,14 @@ public class PacienteTest {
 	@Test
 	public void criarPaciente() {
 
-		Paciente cliente = new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDO,
+		Paciente cliente = new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDA,
 				LocalDate.of(1991, 03, 15), "384.418.688-32", "47.331.419-8", "XXXXXXXXXXXX", "14530-000",
-				"Av José Augusto Mendonça 331", "Sumaré", "Miguelópolis", "016991034148");
+				"Av José Augusto Mendonça 331", "Sumaré", "Miguelópolis", "016991034148", EnviarSms.NAO);
 
 		assertEquals("PACIENTE-ID", cliente.getPacienteId().getId());
 		assertEquals("Bruno", cliente.getNome());
 		assertEquals(Sexo.MASCULINO, cliente.getSexo());
-		assertEquals(Raca.PARDO, cliente.getRaca());
+		assertEquals(Raca.PARDA, cliente.getRaca());
 		assertEquals(LocalDate.of(1991, 03, 15), cliente.getDataDeNascimento());
 		assertEquals("384.418.688-32", cliente.getCpf());
 		assertEquals("47.331.419-8", cliente.getRg());
@@ -36,15 +36,16 @@ public class PacienteTest {
 		assertEquals("Sumaré", cliente.getBairro());
 		assertEquals("Miguelópolis", cliente.getCidade());
 		assertEquals("016991034148", cliente.getTelefone());
+		assertEquals(EnviarSms.NAO, cliente.getEnviarSms());
 	}
 
 	@Test
 	public void criarPacienteComCampoPacienteIdNullOuVazioDeveLancarException() {
 
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			new Paciente(new PacienteId(null), "Bruno", Sexo.MASCULINO, Raca.PARDO, LocalDate.of(1991, 03, 15),
+			new Paciente(new PacienteId(null), "Bruno", Sexo.MASCULINO, Raca.PARDA, LocalDate.of(1991, 03, 15),
 					"384.418.688-32", "47.331.419-8", "XXXXXXXXXXXX", "14530-000", "Av José Augusto Mendonça 331",
-					"Sumaré", "Miguelópolis", "016991034148");
+					"Sumaré", "Miguelópolis", "016991034148", EnviarSms.SIM);
 		}).withMessage(PacienteId.ERROR_PACIENTE_ID);
 
 	}
@@ -53,9 +54,9 @@ public class PacienteTest {
 	public void criarPacienteComCampoNomeNullOuVazioDeveLancarException() {
 
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			new Paciente(new PacienteId("PACIENTE-ID"), null, Sexo.MASCULINO, Raca.PARDO, LocalDate.of(1991, 03, 15),
+			new Paciente(new PacienteId("PACIENTE-ID"), null, Sexo.MASCULINO, Raca.PARDA, LocalDate.of(1991, 03, 15),
 					"384.418.688-32", "47.331.419-8", "XXXXXXXXXXXX", "14530-000", "Av José Augusto Mendonça 331",
-					"Sumaré", "Miguelópolis", "016991034148");
+					"Sumaré", "Miguelópolis", "016991034148", EnviarSms.SIM);
 		}).withMessage(Paciente.ERROR_NOME);
 
 	}
@@ -64,9 +65,9 @@ public class PacienteTest {
 	public void criarPacienteComCampoSexoNullOuVazioDeveLancarException() {
 
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", null, Raca.PARDO, LocalDate.of(1991, 03, 15),
+			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", null, Raca.PARDA, LocalDate.of(1991, 03, 15),
 					"384.418.688-32", "47.331.419-8", "XXXXXXXXXXXX", "14530-000", "Av José Augusto Mendonça 331",
-					"Sumaré", "Miguelópolis", "016991034148");
+					"Sumaré", "Miguelópolis", "016991034148", EnviarSms.SIM);
 		}).withMessage(Paciente.ERROR_SEXO);
 
 	}
@@ -77,7 +78,7 @@ public class PacienteTest {
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
 			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, null, LocalDate.of(1991, 03, 15),
 					"384.418.688-32", "47.331.419-8", "XXXXXXXXXXXX", "14530-000", "Av José Augusto Mendonça 331",
-					"Sumaré", "Miguelópolis", "016991034148");
+					"Sumaré", "Miguelópolis", "016991034148", EnviarSms.SIM);
 		}).withMessage(Paciente.ERROR_RACA);
 
 	}
@@ -86,9 +87,9 @@ public class PacienteTest {
 	public void criarPacienteComCampoDataDeNascimentoNullOuVazioDeveLancarException() {
 
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDO, null, "384.418.688-32",
+			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDA, null, "384.418.688-32",
 					"47.331.419-8", "XXXXXXXXXXXX", "14530-000", "Av José Augusto Mendonça 331", "Sumaré",
-					"Miguelópolis", "016991034148");
+					"Miguelópolis", "016991034148", EnviarSms.SIM);
 		}).withMessage(Paciente.ERROR_DATA_DE_NASCIMENTO);
 
 	}
@@ -97,9 +98,9 @@ public class PacienteTest {
 	public void criarPacienteComCpfNullOuVazioDeveLancarException() {
 
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDO, LocalDate.of(1991, 03, 15),
+			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDA, LocalDate.of(1991, 03, 15),
 					null, "47.331.419-8", "XXXXXXXXXXXX", "14530-000", "Av José Augusto Mendonça 331", "Sumaré",
-					"Miguelópolis", "016991034148");
+					"Miguelópolis", "016991034148", EnviarSms.SIM);
 		}).withMessage(Paciente.ERROR_CPF);
 
 	}
@@ -108,9 +109,9 @@ public class PacienteTest {
 	public void criarPacienteComRgNullOuVazioDeveLancarException() {
 
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDO, LocalDate.of(1991, 03, 15),
+			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDA, LocalDate.of(1991, 03, 15),
 					"384.418.688-32", null, "XXXXXXXXXXXX", "14530-000", "Av José Augusto Mendonça 331", "Sumaré",
-					"Miguelópolis", "016991034148");
+					"Miguelópolis", "016991034148", EnviarSms.SIM);
 		}).withMessage(Paciente.ERROR_RG);
 
 	}
@@ -119,9 +120,9 @@ public class PacienteTest {
 	public void criarPacienteComCartaoNacionalDeSaudeNullOuVazioDeveLancarException() {
 
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDO, LocalDate.of(1991, 03, 15),
+			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDA, LocalDate.of(1991, 03, 15),
 					"384.418.688-32", "47.331.419-8", null, "14530-000", "Av José Augusto Mendonça 331", "Sumaré",
-					"Miguelópolis", "016991034148");
+					"Miguelópolis", "016991034148", EnviarSms.SIM);
 		}).withMessage(Paciente.ERROR_CARTAO_NACIONAL_DE_SAUDE);
 
 	}
@@ -130,9 +131,9 @@ public class PacienteTest {
 	public void criarPacienteComCepNullOuVazioDeveLancarException() {
 
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDO, LocalDate.of(1991, 03, 15),
+			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDA, LocalDate.of(1991, 03, 15),
 					"384.418.688-32", "47.331.419-8", "XXXXXXXXXXXX", null, "Av José Augusto Mendonça 331", "Sumaré",
-					"Miguelópolis", "016991034148");
+					"Miguelópolis", "016991034148", EnviarSms.SIM);
 		}).withMessage(Paciente.ERROR_CEP);
 
 	}
@@ -141,9 +142,9 @@ public class PacienteTest {
 	public void criarPacienteComEnderecoNullOuVazioDeveLancarException() {
 
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDO, LocalDate.of(1991, 03, 15),
+			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDA, LocalDate.of(1991, 03, 15),
 					"384.418.688-32", "47.331.419-8", "XXXXXXXXXXXX", "14530-000", null, "Sumaré", "Miguelópolis",
-					"016991034148");
+					"016991034148", EnviarSms.SIM);
 		}).withMessage(Paciente.ERROR_ENDERECO);
 
 	}
@@ -152,9 +153,9 @@ public class PacienteTest {
 	public void criarPacienteComBairroNullOuVazioDeveLancarException() {
 
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDO, LocalDate.of(1991, 03, 15),
+			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDA, LocalDate.of(1991, 03, 15),
 					"384.418.688-32", "47.331.419-8", "XXXXXXXXXXXX", "14530-000", "Av José Augusto Mendonça 331", null,
-					"Miguelópolis", "016991034148");
+					"Miguelópolis", "016991034148", EnviarSms.SIM);
 		}).withMessage(Paciente.ERROR_BAIRRO);
 
 	}
@@ -163,9 +164,9 @@ public class PacienteTest {
 	public void criarPacienteComCidadeNullOuVazioDeveLancarException() {
 
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDO, LocalDate.of(1991, 03, 15),
+			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDA, LocalDate.of(1991, 03, 15),
 					"384.418.688-32", "47.331.419-8", "XXXXXXXXXXXX", "14530-000", "Av José Augusto Mendonça 331",
-					"Sumaré", null, "016991034148");
+					"Sumaré", null, "016991034148", EnviarSms.SIM);
 		}).withMessage(Paciente.ERROR_CIDADE);
 
 	}
@@ -174,10 +175,21 @@ public class PacienteTest {
 	public void criarPacienteComTelefoneNullOuVazioDeveLancarException() {
 
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
-			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDO, LocalDate.of(1991, 03, 15),
+			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDA, LocalDate.of(1991, 03, 15),
 					"384.418.688-32", "47.331.419-8", "XXXXXXXXXXXX", "14530-000", "Av José Augusto Mendonça 331",
-					"Sumaré", "Miguelópolis", null);
+					"Sumaré", "Miguelópolis", null, EnviarSms.SIM);
 		}).withMessage(Paciente.ERROR_TELEFONE);
+
+	}
+
+	@Test
+	public void criarPacienteComEnvioSmsNullOuVazioDeveLancarException() {
+
+		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
+			new Paciente(new PacienteId("PACIENTE-ID"), "Bruno", Sexo.MASCULINO, Raca.PARDA, LocalDate.of(1991, 03, 15),
+					"384.418.688-32", "47.331.419-8", "XXXXXXXXXXXX", "14530-000", "Av José Augusto Mendonça 331",
+					"Sumaré", "Miguelópolis", "016991034148", null);
+		}).withMessage(Paciente.ERROR_ENVIO_SMS);
 
 	}
 

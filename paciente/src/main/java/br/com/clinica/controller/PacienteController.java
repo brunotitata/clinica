@@ -1,5 +1,7 @@
 package br.com.clinica.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -64,5 +66,11 @@ public class PacienteController {
 
 		return ResponseEntity.ok().body(pacienteService.buscarPacientePorCpf(cpf));
 	}
+	
+	@GetMapping("/buscar/paciente/nome/{nome}")
+	public ResponseEntity<List<Paciente>> buscarPacientePeloNome(@PathVariable String nome) {
 
+	        return ResponseEntity.ok().body(pacienteService.buscarPacientePorNome(nome));
+
+	}
 }
