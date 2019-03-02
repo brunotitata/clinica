@@ -24,6 +24,7 @@ public class Agenda {
     public static final String ERROR_TELEFONE_RESIDENCIAL = "Numero residencial não pode ser nulo ou vazio.";
     public static final String ERROR_DATA_DO_AGENDAMENTO = "Data do agendamento não pode ser nulo ou vazio.";
     public static final String ERROR_STATUS = "Status do agendamento não pode ser nulo ou vazio.";
+    public static final String ERROR_RECEPCIONISTA = "Profissional não pode ser nulo ou vazio.";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,24 +32,30 @@ public class Agenda {
     @Enumerated(EnumType.STRING)
     private Procedimento procedimento;
     private String nomePaciente;
+    @Enumerated(EnumType.STRING)
+    private Recepcionista recepcionista;
     private String telefoneCelular;
     private String telefoneResidencial;
+    @Enumerated(EnumType.STRING)
     private Convenio convenio;
-    private BigDecimal valor;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataDoAgendamento;
+    @Enumerated(EnumType.STRING)
     private Agendamento repetirAgendamento;
     private String observacoes;
+    @Enumerated(EnumType.STRING)
     private Status status;
+    private BigDecimal valorAgendamento;
 
     public Agenda(String nomePaciente, String telefoneCelular,
             String telefoneResidencial, LocalDateTime dataDoAgendamento,
-            Status status) {
+            Status status, Recepcionista recepcionista) {
         setNomePaciente(nomePaciente);
         setTelefoneCelular(telefoneCelular);
         setTelefoneResidencial(telefoneResidencial);
         setDataDoAgendamento(dataDoAgendamento);
         setStatus(status);
+        setRecepcionista(recepcionista);
     }
 
     public Agenda() {
@@ -128,14 +135,6 @@ public class Agenda {
         return id;
     }
 
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -145,15 +144,21 @@ public class Agenda {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Agenda [id=" + id + ", procedimento=" + procedimento
-                + ", nomePaciente=" + nomePaciente + ", telefoneCelular="
-                + telefoneCelular + ", telefoneResidencial="
-                + telefoneResidencial + ", convenio=" + convenio + ", valor="
-                + valor + ", dataDoAgendamento=" + dataDoAgendamento
-                + ", repetirAgendamento=" + repetirAgendamento
-                + ", observacoes=" + observacoes + ", status=" + status + "]";
+    public Recepcionista getRecepcionista() {
+        return recepcionista;
+    }
+
+    public void setRecepcionista(Recepcionista recepcionista) {
+        Utils.assertArgumentNotNull(recepcionista, ERROR_RECEPCIONISTA);
+        this.recepcionista = recepcionista;
+    }
+
+    public BigDecimal getValorAgendamento() {
+        return valorAgendamento;
+    }
+
+    public void setValorAgendamento(BigDecimal valorAgendamento) {
+        this.valorAgendamento = valorAgendamento;
     }
 
 }

@@ -1,6 +1,5 @@
 package br.com.clinica.service;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Test;
@@ -8,7 +7,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.client.RestTemplate;
 
 import br.com.clinica.model.PacienteResource;
 
@@ -17,16 +15,15 @@ import br.com.clinica.model.PacienteResource;
 public class AgendaServiceTest {
 
     @Autowired
-    private RestTemplate restTemplate;
+    private AgendaService agendaService;
 
     @Test
     public void testandoAgenda() {
 
-        List<PacienteResource> asList = Arrays.asList(restTemplate.getForObject(
-                "http://localhost:9000/buscar/paciente/nome/Bruno",
-                PacienteResource[].class));
+        List<PacienteResource> buscarPaciente = agendaService
+                .buscarPaciente("Bruno");
 
-        System.out.println("#####: " + asList);
+        System.out.println("#####: " + buscarPaciente);
     }
 
 }
