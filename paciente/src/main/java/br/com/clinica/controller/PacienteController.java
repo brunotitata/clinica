@@ -3,9 +3,8 @@ package br.com.clinica.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,59 +17,60 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.clinica.model.Paciente;
 import br.com.clinica.service.PacienteService;
 
+@CrossOrigin
 @RestController()
 public class PacienteController {
 
-	@Autowired
-	private PacienteService pacienteService;
+    @Autowired
+    private PacienteService pacienteService;
 
-	@PostMapping("/salvar/paciente")
-	public ResponseEntity<?> salvarPaciente(@RequestBody Paciente paciente) {
+    @PostMapping("/salvar/paciente")
+    public ResponseEntity<Paciente> salvarPaciente(@RequestBody Paciente paciente) {
 
-		Paciente salvarPaciente = pacienteService.salvarPaciente(paciente);
+	Paciente salvarPaciente = pacienteService.salvarPaciente(paciente);
 
-		return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
-				.buildAndExpand(salvarPaciente.getPacienteId().getId()).toUri()).build();
-	}
+	return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
+		.buildAndExpand(salvarPaciente.getId()).toUri()).build();
+    }
 
-	@GetMapping("/buscar/paciente/{pacienteId}")
-	public ResponseEntity<Paciente> buscarPacientePeloId(@PathVariable String pacienteId) {
+    @GetMapping("/buscar/paciente/{pacienteId}")
+    public ResponseEntity<Paciente> buscarPacientePeloId(@PathVariable Long pacienteId) {
 
-		return ResponseEntity.ok().body(pacienteService.buscarPacientePeloPacienteId(pacienteId));
-	}
+	return ResponseEntity.ok().body(pacienteService.buscarPacientePeloPacienteId(pacienteId));
+    }
 
-	@GetMapping("/buscar/pacientes/todos")
-	public ResponseEntity<Page<Paciente>> buscarTodosPacientes(Pageable pageable) {
+    @GetMapping("/buscar/pacientes/todos")
+    public ResponseEntity<List<Paciente>> buscarTodosPacientes() {
 
-		return ResponseEntity.ok().body(pacienteService.buscarTodosPacientes(pageable));
-	}
+	return ResponseEntity.ok().body(pacienteService.buscarTodosPacientes());
+    }
 
-	@DeleteMapping("/excluir/paciente/{id}")
-	public ResponseEntity<?> excluirPaciente(@PathVariable Long id) {
+    @DeleteMapping("/excluir/paciente/{id}")
+    public ResponseEntity<?> excluirPaciente(@PathVariable Long id) {
 
-		pacienteService.excluirPaciente(id);
+	pacienteService.excluirPaciente(id);
 
-		return ResponseEntity.noContent().build();
-	}
+	return ResponseEntity.noContent().build();
+    }
 
-	@PutMapping("/alterar/paciente/{id}")
-	public ResponseEntity<Paciente> alterarPaciente(@RequestBody Paciente obj, @PathVariable Long id) {
+    @PutMapping("/alterar/paciente/{id}")
+    public ResponseEntity<Paciente> alterarPaciente(@RequestBody Paciente obj, @PathVariable Long id) {
 
-		pacienteService.alterarPaciente(id, obj);
+	pacienteService.alterarPaciente(id, obj);
 
-		return ResponseEntity.noContent().build();
-	}
+	return ResponseEntity.noContent().build();
+    }
 
-	@GetMapping("/buscar/paciente/cpf/{cpf}")
-	public ResponseEntity<Paciente> buscarPacientePorCpf(@PathVariable String cpf) {
+    @GetMapping("/buscar/paciente/cpf/{cpf}")
+    public ResponseEntity<Paciente> buscarPacientePorCpf(@PathVariable String cpf) {
 
-		return ResponseEntity.ok().body(pacienteService.buscarPacientePorCpf(cpf));
-	}
-	
-	@GetMapping("/buscar/paciente/nome/{nome}")
-	public ResponseEntity<List<Paciente>> buscarPacientePeloNome(@PathVariable String nome) {
+	return ResponseEntity.ok().body(pacienteService.buscarPacientePorCpf(cpf));
+    }
 
-	        return ResponseEntity.ok().body(pacienteService.buscarPacientePorNome(nome));
+    @GetMapping("/buscar/paciente/nome/{nome}")
+    public ResponseEntity<List<Paciente>> buscarPacientePeloNome(@PathVariable String nome) {
 
-	}
+	return ResponseEntity.ok().body(pacienteService.buscarPacientePorNome(nome));
+
+    }
 }

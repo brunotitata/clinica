@@ -2,6 +2,7 @@ package br.com.clinica.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -28,7 +29,7 @@ public class Agenda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private UUID id;
     @Enumerated(EnumType.STRING)
     private Procedimento procedimento;
     private String nomePaciente;
@@ -47,118 +48,115 @@ public class Agenda {
     private Status status;
     private BigDecimal valorAgendamento;
 
-    public Agenda(String nomePaciente, String telefoneCelular,
-            String telefoneResidencial, LocalDateTime dataDoAgendamento,
-            Status status, Recepcionista recepcionista) {
-        setNomePaciente(nomePaciente);
-        setTelefoneCelular(telefoneCelular);
-        setTelefoneResidencial(telefoneResidencial);
-        setDataDoAgendamento(dataDoAgendamento);
-        setStatus(status);
-        setRecepcionista(recepcionista);
+    public Agenda(String nomePaciente, String telefoneCelular, String telefoneResidencial,
+	    LocalDateTime dataDoAgendamento, Status status, Recepcionista recepcionista) {
+	setNomePaciente(nomePaciente);
+	setTelefoneCelular(telefoneCelular);
+	setTelefoneResidencial(telefoneResidencial);
+	setDataDoAgendamento(dataDoAgendamento);
+	setStatus(status);
+	setRecepcionista(recepcionista);
     }
 
     public Agenda() {
     }
 
     public Procedimento getProcedimento() {
-        return procedimento;
+	return procedimento;
     }
 
     public void setProcedimento(Procedimento procedimento) {
-        this.procedimento = procedimento;
+	this.procedimento = procedimento;
     }
 
     public String getNomePaciente() {
-        return nomePaciente;
+	return nomePaciente;
     }
 
     public void setNomePaciente(String nomePaciente) {
-        Utils.assertArgumentNotEmpty(nomePaciente, ERROR_NOME_PACIENTE);
-        this.nomePaciente = nomePaciente;
+	Utils.assertArgumentNotEmpty(nomePaciente, ERROR_NOME_PACIENTE);
+	this.nomePaciente = nomePaciente;
     }
 
     public String getTelefoneCelular() {
-        return telefoneCelular;
+	return telefoneCelular;
     }
 
     public void setTelefoneCelular(String telefoneCelular) {
-        Utils.assertArgumentNotEmpty(telefoneCelular, ERROR_TELEFONE_CELULAR);
-        this.telefoneCelular = telefoneCelular;
+	Utils.assertArgumentNotEmpty(telefoneCelular, ERROR_TELEFONE_CELULAR);
+	this.telefoneCelular = telefoneCelular;
     }
 
     public String getTelefoneResidencial() {
-        return telefoneResidencial;
+	return telefoneResidencial;
     }
 
     public void setTelefoneResidencial(String telefoneResidencial) {
-        Utils.assertArgumentNotEmpty(telefoneResidencial,
-                ERROR_TELEFONE_RESIDENCIAL);
-        this.telefoneResidencial = telefoneResidencial;
+	Utils.assertArgumentNotEmpty(telefoneResidencial, ERROR_TELEFONE_RESIDENCIAL);
+	this.telefoneResidencial = telefoneResidencial;
     }
 
     public Convenio getConvenio() {
-        return convenio;
+	return convenio;
     }
 
     public void setConvenio(Convenio convenio) {
-        this.convenio = convenio;
+	this.convenio = convenio;
     }
 
     public LocalDateTime getDataDoAgendamento() {
-        return dataDoAgendamento;
+	return dataDoAgendamento;
     }
 
     public void setDataDoAgendamento(LocalDateTime dataDoAgendamento) {
-        Utils.assertArgumentNotNull(dataDoAgendamento,
-                ERROR_DATA_DO_AGENDAMENTO);
-        this.dataDoAgendamento = dataDoAgendamento;
+	Utils.assertArgumentNotNull(dataDoAgendamento, ERROR_DATA_DO_AGENDAMENTO);
+	this.dataDoAgendamento = dataDoAgendamento;
     }
 
     public Agendamento getRepetirAgendamento() {
-        return repetirAgendamento;
+	return repetirAgendamento;
     }
 
     public void setRepetirAgendamento(Agendamento repetirAgendamento) {
-        this.repetirAgendamento = repetirAgendamento;
+	this.repetirAgendamento = repetirAgendamento;
     }
 
     public String getObservacoes() {
-        return observacoes;
+	return observacoes;
     }
 
     public void setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
+	this.observacoes = observacoes;
     }
 
-    public Long getId() {
-        return id;
+    public UUID getId() {
+	return id;
     }
 
     public Status getStatus() {
-        return status;
+	return status;
     }
 
     public void setStatus(Status status) {
-        Utils.assertArgumentNotNull(status, ERROR_STATUS);
-        this.status = status;
+	Utils.assertArgumentNotNull(status, ERROR_STATUS);
+	this.status = status;
     }
 
     public Recepcionista getRecepcionista() {
-        return recepcionista;
+	return recepcionista;
     }
 
     public void setRecepcionista(Recepcionista recepcionista) {
-        Utils.assertArgumentNotNull(recepcionista, ERROR_RECEPCIONISTA);
-        this.recepcionista = recepcionista;
+	Utils.assertArgumentNotNull(recepcionista, ERROR_RECEPCIONISTA);
+	this.recepcionista = recepcionista;
     }
 
     public BigDecimal getValorAgendamento() {
-        return valorAgendamento;
+	return valorAgendamento;
     }
 
     public void setValorAgendamento(BigDecimal valorAgendamento) {
-        this.valorAgendamento = valorAgendamento;
+	this.valorAgendamento = valorAgendamento;
     }
 
 }
